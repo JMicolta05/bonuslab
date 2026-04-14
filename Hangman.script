@@ -33,3 +33,21 @@ play_game() {
 	echo "Word: $display"
         echo "Guessed letters: $guessed"
         echo "Attempts left: $attempts"
+
+	# Read user guess
+        read -p "Enter a letter: " guess
+
+        # Validate input (single letter only)
+        if [[ ! $guess =~ ^[a-zA-Z]$ ]]; then
+            echo "Please enter a single letter."
+            continue
+        fi
+
+        # Normalize to lowercase
+        guess=$(echo "$guess" | tr '[:upper:]' '[:lower:]')
+
+        # Check if already guessed
+        if [[ $guessed == *"$guess"* ]]; then
+            echo "You already guessed '$guess'. Try another."
+            continue
+        fi
