@@ -80,3 +80,46 @@ play_game() {
             # Wrong guess
             ((attempts--))
 	fi
+
+        # Check for win
+        if [[ "$display" == "$WORD" ]]; then
+            echo
+            echo "Congratulations! You guessed the word: $WORD"
+            ((WINS++))
+            return 1   # signal win
+        fi
+    done
+
+    # If loop ends without win
+    echo
+    echo "Out of attempts! The word was: $WORD"
+    return 0
+}
+
+# Main Loop
+
+while true; do
+    ((GAMES++))
+    play_game
+
+    echo
+    echo "Score: $WINS wins out of $GAMES games"
+
+    # Ask user if they want to play again
+    while true; do
+        read -p "Play again? (y/n): " choice
+
+        if [[ $choice == "y" || $choice == "n" ]]; then
+            break
+        else
+            echo "Please enter y or n."
+        fi
+    done
+
+    if [[ $choice == "n" ]]; then
+        echo "Thanks for playing!"
+        break
+    fi
+done
+
+        
