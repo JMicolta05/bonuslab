@@ -10,9 +10,9 @@ WINS=0
 
 # Pick a random valid word from the dictionary
 get_word() {
-    # Filter words: lowercase letters only, proper length
+    # Filter words: get words that match specifications, make sure all of them are transformed to lower case letters, grab one random word (one random line)
     WORD=$(grep -E "^[a-zA-Z]{$MIN_WORD_LENGTH,$MAX_WORD_LENGTH}$" "$WORDS_FILE" | tr '[:upper:]' '[:lower:]' | shuf -n 1)
-
+}
 
 
 # Play a single game
@@ -21,7 +21,15 @@ play_game() {
 
     # Initialize display with underscores (no sed)
     display=""
-    for (i=0; i<${#WORD}; i++)); do
+    for ((i=0; i<${#WORD}; i++)); do
         display+="_"
     done
 
+    guessed=""                                # letters guessed
+    attempts=6                                # max attempts
+
+    while [[ $attempts -gt 0 ]]; do
+        echo
+	echo "Word: $display"
+        echo "Guessed letters: $guessed"
+        echo "Attempts left: $attempts"
