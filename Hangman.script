@@ -30,11 +30,11 @@ play_game() {
 
     while [[ $attempts -gt 0 ]]; do
         echo
-	echo "Word: $display"
+	    echo "Word: $display"
         echo "Guessed letters: $guessed"
         echo "Attempts left: $attempts"
 
-	# Read user guess
+	    # Read user guess
         read -p "Enter a letter: " guess
 
         # Validate input (single letter only)
@@ -59,27 +59,32 @@ play_game() {
         if [[ $WORD == *"$guess"* ]]; then
 
  
-            new_display=""
-
-        i=0
-        for (( i=0; i<${#WORD}; i++ )); do
-            letter=$(echo "$WORD" | cut -c $((i+1)))
-
-		if [[ "$letter" == "$guess" ]]; then
-                    new_display+="$guess"
-                elif [[ $guessed == *"$letter"* ]]; then
-                    new_display+="$letter"
-                else
-                    new_display+="_"
-                fi
-            done
-
-            display="$new_display"
-
-        else
-            # Wrong guess
-            ((attempts--))
-	fi
+		# Check if guess is in the word
+    	if [[ $WORD == *"$guess"* ]]; then
+    	new_display=""
+		# Check if guess is in the word
+		if [[ $WORD == *"$guess"* ]]; then
+		
+		    new_display=""
+		
+		    for (( i=0; i<${#WORD}; i++ )); do
+		        letter=$(echo "$WORD" | cut -c $((i+1)))
+		
+		        if [[ "$letter" == "$guess" ]]; then
+		            new_display+="$guess"
+		        elif [[ $guessed == *"$letter"* ]]; then
+		            new_display+="$letter"
+		        else
+		            new_display+="_"
+		        fi
+		    done
+		
+		    display="$new_display"
+		
+		else
+		    # Wrong guess
+		    ((attempts--))
+		fi
 
         # Check for win
         if [[ "$display" == "$WORD" ]]; then
