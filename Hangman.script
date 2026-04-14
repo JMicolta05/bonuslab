@@ -7,3 +7,21 @@ MAX_WORD_LENGTH=10
 
 GAMES=0
 WINS=0
+
+# Pick a random valid word from the dictionary
+get_word() {
+    # Filter words: lowercase letters only, proper length
+    WORD=$(grep -E "^[a-zA-Z]{$MIN_WORD_LENGTH,$MAX_WORD_LENGTH}$" "$WORDS_FILE" | tr '[:upper:]' '[:lower:]' | shuf -n 1)
+
+
+
+# Play a single game
+play_game() {
+    get_word
+
+    # Initialize display with underscores (no sed)
+    display=""
+    for (i=0; i<${#WORD}; i++)); do
+        display+="_"
+    done
+
