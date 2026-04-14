@@ -26,7 +26,7 @@ play_game() {
     done
 
     guessed=""                                # letters guessed
-    attempts=6                                # max attempts
+    attempts=8                                # max attempts
 
     while [[ $attempts -gt 0 ]]; do
         echo
@@ -55,13 +55,6 @@ play_game() {
         # Add guess to guessed letters
         guessed+="$guess "
 
-        # Check if guess is in the word
-        if [[ $WORD == *"$guess"* ]]; then
-
- 
-		# Check if guess is in the word
-    	if [[ $WORD == *"$guess"* ]]; then
-    	new_display=""
 		# Check if guess is in the word
 		if [[ $WORD == *"$guess"* ]]; then
 		
